@@ -1,0 +1,13 @@
+# 设置版本
+cmake_minimum_required(VERSION 3.27)
+# 设置项目名称
+project(LearnC__)
+# 设置c++编译标准
+set(CMAKE_CXX_STANDARD 20)
+
+add_subdirectory(learn_c++00)
+add_subdirectory(learn_c++03)
+add_subdirectory(learn_c++04)
+add_subdirectory(learn_c++05)
+add_subdirectory(learn_c++06)
+add_subdirectory(learn_c++07)

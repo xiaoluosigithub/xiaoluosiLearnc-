@@ -1,0 +1,1 @@
+add_executable(learn_c++04 main.cpp global.h global.cpp)
