@@ -47,6 +47,23 @@ void movePoint(Point &p, int dx, int dy){
     p.y += dy;
 }
 
+void movePoint2(Point *p, int x, int y){
+    p->x += x;
+    p->y += y;
+}
+
+Point movePoint3(Point *p, int dx, int dy){
+    Point p2 = *p;
+    p2.x += dx;
+    p2.y += dy;
+    return p2;
+}
+
+Point movePoint4(Point *p, int dx, int dy){
+    (*p).x += dx;
+    (*p).y += dy;
+    return *p;
+}
 
 int main() {
     system("chcp 65001");
@@ -99,6 +116,12 @@ int main() {
     Point p1 = {10, 20};
     printPiont(p1);
     movePoint(p1, 5, 5);
+    printPiont(p1);
+    movePoint2(&p1, 5, 5);
+    printPiont(p1);
+    printPiont(movePoint3(&p1, 5, -5));
+    printPiont(movePoint4(&p1, 100, 100));
+    printPiont(p1);
 
     return 0;
 }
