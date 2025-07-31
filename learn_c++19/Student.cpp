@@ -60,3 +60,21 @@ Student &Student::operator=(const Student &student) {
     return * this;
 }
 
+Student &Student::operator=(Student &&student) {
+    if(this == &student){
+        return *this;
+    }
+    this->_name = std::move(student._name);
+    this->_num = std::move(student._num);
+    this->_age = student._age;
+    return * this;
+}
+
+void ChangeAge(Student &student, int age){
+    student._age = age;
+}
+
+std::ostream &operator<<(std::ostream &out, const Student &student){
+    out << student._name << " " << student._num << " " << student._age;
+    return out;
+}

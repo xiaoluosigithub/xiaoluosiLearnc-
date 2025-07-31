@@ -415,3 +415,158 @@ Destructor called.
 ```
 
 ------
+
+## 8. 类的友元
+
+### 8.1 什么是友元
+
+- **友元（Friend）**：可以访问类的私有和保护成员的非成员函数或另一个类。
+
+### 8.2 类型
+
+- **友元函数**：单个函数可以被声明为友元。
+- **友元类**：整个类可以被声明为友元。
+
+### 8.3 使用示例
+
+```cpp
+#include <iostream>
+
+class Box {
+public:
+    Box(double length, double width, double height)
+        : length_(length), width_(width), height_(height) {}
+
+    // 声明友元函数
+    friend double calculateVolume(const Box& b);
+
+private:
+    double length_;
+    double width_;
+    double height_;
+};
+
+// 友元函数定义
+double calculateVolume(const Box& b) {
+    return b.length_ * b.width_ * b.height_;
+}
+```
+
+### 8.4 使用友元类
+
+```cpp
+class Rectangle {
+public:
+    Rectangle(double width, double height) : width_(width), height_(height) {}
+
+private:
+    double width_;
+    double height_;
+
+    // 声明友元类
+    friend class AreaCalculator;
+};
+
+class AreaCalculator {
+public:
+    double calculateArea(const Rectangle& rect) {
+        return rect.width_ * rect.height_;
+    }
+};
+```
+
+------
+
+## 9. 运算符重载
+
+### 9.1 什么是运算符重载
+
+- **运算符重载（Operator Overloading）**：允许对自定义类型使用C++运算符，如 `+`, `-`, `<<` 等。
+
+### 9.2 重载运算符的规则
+
+- 只能对已有运算符进行重载，不能创建新运算符。
+- 至少有一个操作数必须是用户定义的类型。
+- 不能改变运算符的优先级或结合性。
+
+### 9.3 示例：重载 `+` 运算符
+
+```cpp
+#include <iostream>
+#include <string>
+
+class Point {
+public:
+    Point(double x, double y) : x_(x), y_(y) {}
+
+    // 成员函数重载 +
+    Point operator+(const Point& other) const {
+        return Point(x_ + other.x_, y_ + other.y_);
+    }
+
+    void print() const {
+        std::cout << "(" << x_ << ", " << y_ << ")\n";
+    }
+
+private:
+    double x_;
+    double y_;
+};
+
+// 也可以使用友元函数重载 +
+
+Point operator-(const Point& a, const Point& b) {
+    return Point(a.x_ - b.x_, a.y_ - b.y_);
+}
+
+int main() {
+    Point p1(1.5, 2.5);
+    Point p2(3.0, 4.0);
+
+    Point p3 = p1 + p2;
+    p3.print(); // 输出： (4.5, 6.5)
+
+    Point p4 = p2 - p1;
+    p4.print(); // 输出： (1.5, 1.5)
+
+    return 0;
+}
+```
+
+### 9.4 示例：重载 `<<` 运算符（输出流）
+
+```cpp
+#include <iostream>
+#include <string>
+
+class Employee {
+public:
+    Employee(const std::string& name, double salary)
+        : name_(name), salary_(salary) {}
+
+    // 声明友元函数以重载 <<
+    friend std::ostream& operator<<(std::ostream& os, const Employee& emp);
+
+private:
+    std::string name_;
+    double salary_;
+};
+
+// 定义重载的 <<
+std::ostream& operator<<(std::ostream& os, const Employee& emp) {
+    os << "Employee Name: " << emp.name_ << ", Salary: $" << emp.salary_;
+    return os;
+}
+
+int main() {
+    Employee emp("John Doe", 75000);
+    std::cout << emp << std::endl;
+    return 0;
+}
+```
+
+**输出示例：**
+
+```yaml
+Employee Name: John Doe, Salary: $75000
+```

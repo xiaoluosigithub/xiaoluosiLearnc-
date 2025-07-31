@@ -36,10 +36,23 @@ int main(){
     std::cout << "Name: " << student6.GetName() << std::endl;
     std::cout << "Age: " << student6.GetAge() << std::endl;
     std::cout << "Num: " << student6.GetNum() << std::endl;
+
     student6 = student5;
     std::cout << "Name: " << student6.GetName() << std::endl;
     std::cout << "Age: " << student6.GetAge() << std::endl;
     std::cout << "Num: " << student6.GetNum() << std::endl;
+
+    Student student7 = std::move(student6);
+    std::cout << "Name: " << student7.GetName() << std::endl;
+    std::cout << "Age: " << student7.GetAge() << std::endl;
+    std::cout << "Num: " << student7.GetNum() << std::endl;
+
+
+    std::cout << "-------------------------------" << std::endl;
+    std::cout << "Student7: " << std::endl;
+    std::cout << student7 << std::endl;
+    std::cout << "-------------------------------" << std::endl;
+
 
     return 0;
 }
