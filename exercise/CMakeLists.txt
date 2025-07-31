@@ -1,0 +1,5 @@
+add_executable(work1 work1.cpp)
+add_executable(work2 work2.cpp)
+add_executable(work3 work3.cpp)
+add_executable(work4 work4.cpp)
+add_executable(work5 work5.cpp)
