@@ -1,7 +1,7 @@
 //
 // Created by lyx on 2025/7/31.
 //
-#include <iostream>s
+#include <iostream>
 
 int main(){
     double pai_val = 3.14;
