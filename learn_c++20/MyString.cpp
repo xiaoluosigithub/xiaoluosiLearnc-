@@ -117,3 +117,9 @@ std::ostream & operator << (std::ostream & out, const MyString & other){
     out << other._data;
     return out;
 }
+
+MyString::~MyString() {
+    if(_data == nullptr) return;
+    delete[] _data;
+    _data = nullptr;
+}

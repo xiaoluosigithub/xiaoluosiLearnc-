@@ -18,6 +18,7 @@ public:
     MyString& operator + (const MyString & other);
     bool operator == (const MyString&other);
     friend std::ostream & operator << (std::ostream & out, const MyString & other);
+    ~MyString();
 private:
     char * _data;
 };
