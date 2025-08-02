@@ -5,7 +5,8 @@ project(LearnC__)
 # 设置c++编译标准
 set(CMAKE_CXX_STANDARD 20)
 
-add_subdirectory(exercise)
+add_subdirectory(exercise1)
+add_subdirectory(exercise2)
 add_subdirectory(learn_c++00)
 add_subdirectory(learn_c++03)
 add_subdirectory(learn_c++04)
