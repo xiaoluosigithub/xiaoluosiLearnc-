@@ -1,0 +1,1 @@
+add_executable(learn_c++26 main.cpp)
