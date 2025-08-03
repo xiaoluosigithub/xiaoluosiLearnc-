@@ -2,7 +2,12 @@
 // Created by lyx on 2025/8/1.
 //
 
+
+
 #include "MyString.h"
+
+/*
+
 // 带参构造
 MyString::MyString(const char *str) {
     // 判断传入指针是否为空
@@ -123,3 +128,4 @@ MyString::~MyString() {
     delete[] _data;
     _data = nullptr;
 }
+*/

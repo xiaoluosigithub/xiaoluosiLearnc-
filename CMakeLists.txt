@@ -29,3 +29,5 @@ add_subdirectory(learn_c++20)
 add_subdirectory(learn_c++21)
 add_subdirectory(learn_c++22)
 add_subdirectory(learn_c++23)
+add_subdirectory(learn_c++24)
+
