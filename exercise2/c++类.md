@@ -2,7 +2,7 @@
 
 ## c++类
 
-## 基本定义
+## 1、基本定义
 
 1. 类的作用
    - 封装：将数据和操作数据的代码绑定在一起，保护数据不被外界直接访问。
@@ -23,11 +23,11 @@ protected:
 
 
 
-## 成员变量和成员函数
+## 2、成员变量和成员函数
 
 
 
-## 访问控制符
+## 3、访问控制符
 
 - **public**：公有成员，可以被所有代码访问。
 - **private**：私有成员，仅能被类的成员函数和友元访问。
@@ -35,7 +35,7 @@ protected:
 
 
 
-## 构造函数
+## 4、构造函数
 
 - 默认构造函数：没有参数的构造函数
 - 参数化构造函数：接收参数以初始化对象
@@ -195,7 +195,7 @@ A(A&& other) noexcept : s(std::move(other.s)) {}
 
 
 
-## 析构函数
+## 5、析构函数
 
 - **析构函数（Destructor）**：在对象生命周期结束时调用，用于释放资源。
 
@@ -229,5 +229,270 @@ private:
     int * _data;
     
 }；
+~~~
+
+
+
+## 示例
+
+~~~cpp
+#include <iostream>
+
+class Example {
+public:
+    // 默认构造函数
+    Example() : data_(0) {
+        std::cout << "Default constructor called.\n";
+    }
+
+    // 参数化构造函数
+    Example(int data) : data_(data) {
+        std::cout << "Parameterized constructor called with data = " << data_ << ".\n";
+    }
+
+    // 拷贝构造函数
+    Example(const Example& other) : data_(other.data_) {
+        std::cout << "Copy constructor called.\n";
+    }
+
+    // 移动构造函数
+    Example(Example&& other) noexcept : data_(other.data_) {
+        other.data_ = 0;
+        std::cout << "Move constructor called.\n";
+    }
+
+    // 析构函数
+    ~Example() {
+        std::cout << "Destructor called for data = " << data_ << ".\n";
+    }
+
+private:
+    int data_;
+};
+~~~
+
+
+
+## 6、拷贝控制
+
+拷贝构造函数与拷贝控制运算符
+
+### 拷贝构造函数
+
+- **定义**：用于创建一个新对象，并复制现有对象的成员。
+- **语法**：`ClassName(const ClassName& other);`
+
+### 拷贝赋值运算符
+
+- **定义**：用于将一个已有对象的值赋给另一个已有对象。
+- **语法**：`ClassName& operator=(const ClassName& other);`
+
+~~~cpp
+class Example{
+public:
+	// 构造函数
+    Example(const char * str = nullptr){
+        // 如果传入指针非空
+        if(str){
+            // _size 大小初始化为传入字符串大小的长度
+            _size = std::strlen(str);
+            // _data 指针申请空间
+            _data = new char[_size + 1];
+            // 将字符串进行拷贝
+            std::strcpy(_data, str);
+        } else {	// 传入指针为空指针
+            _size = 0;	// 长度设置为零
+            _data = new char[1]; 
+            _data = '\0';
+        }
+        std::cout << "Construct called \n";
+    }
+    
+    // 拷贝构造函数
+    Example(const Example & other) : _size(other._size) {
+        _data = new char[_size + 1]; // 指针申请空间 size使用初始化列表进行直接构造
+        std::strcpy(_data, other._data); // 拷贝赋值
+        std::cout << "Copy constructor called \n";
+    }
+    
+    // 拷贝赋值运算符
+    Example & operator = (const Example & other){
+        std::cout << "Copy assignment operator called\n";
+        if(this == & other){ // 如果自拷贝
+            return *this; // 返回自身
+        }
+        
+        delete[] _data; // 释放现有资源
+        
+        _size = other._size;
+        _data = new char[_size + 1];
+        std::strcpy(_data, other._data);
+        return *this;
+    }
+    
+    // 析构函数
+    ~Example(){
+        delete[] _data;
+        std::cout << "Destructor called \n";
+    }
+private:
+    char * _data;
+    std::size_t _size;
+};
+~~~
+
+
+
+## 7、移动语义 移动构造&&移动赋值
+
+### 什么是移动语义
+
+- **移动语义（Move Semantics）**：允许资源的所有权从一个对象转移到另一个对象，避免不必要的拷贝，提高性能。
+
+### 移动构造函数与移动赋值运算符
+
+- **移动构造函数**：`ClassName(ClassName&& other) noexcept;`
+- **移动赋值运算符**：`ClassName& operator=(ClassName&& other) noexcept;`
+
+~~~cpp
+class Example{
+public:
+	// 构造函数 
+    Example(int size) : _size(size), _data(new int[size]){
+        std::cout << "Constructor called \n";
+    }
+    
+    // 拷贝构造函数
+    Example(const Example & other) : _size(other._size), _data(new int[other._size]) {
+        std::copy(other._data, other._data + _size, _data);
+        std::cout << "Copy constructor called\n";
+    }
+    
+    // 移动构造函数
+    Example(Example && other) noexcept : _size(other._size), _data(other._data) {
+        // 将原变量进行置空
+        other._size = 0;
+        other._data = nullptr;
+        std::cout << "Move constructor called\n";
+    }
+    
+    // 拷贝赋值运算符
+    Example & operator = (const Example & other){
+        std::cout << "Copy assignment operator called \n";
+        if(this == &other){
+            return *this;
+        }
+        
+        delete[] _data;
+        _size = other._size;
+        _data = new int[_size];
+        std::copy(other._data, other._data + _size, _data);
+        return *this;
+    }
+    
+    // 移动赋值运算符
+    Example & operator = (Example && other) noexcept {
+        if(this == &other){
+            return *this;
+        }
+        delete[] _data;
+        _size = other._size; 
+        _data = other._data; // 指针资源转移
+        
+        other._size = 0;
+        other._data = nullptr;
+        return *this;
+    }
+    
+private:
+    int _size;
+    int * _data;
+};
+~~~
+
+
+
+## 8、类的友元
+
+### 什么是友元
+
+- **友元（Friend）**：可以访问类的私有和保护成员的非成员函数或另一个类。
+
+### 类型
+
+- **友元函数**：单个函数可以被声明为友元。
+- **友元类**：整个类可以被声明为友元。
+
+~~~cpp
+class Example{
+public:
+    friend void func(const Example & b);
+    friend class Friend_Example;
+private:
+    int a;
+};
+
+// 友元函数定义
+void func(const Example & b){
+    std::cout << b.a << std::endl;
+}
+
+// 友元类定义
+class Friend_Example{
+public:
+    void func(const Example & c){
+        std::cout << c.a << std::endl;
+    }
+}
+~~~
+
+
+
+## 9、运算符重载
+
+### 什么是运算符重载
+
+- **运算符重载（Operator Overloading）**：允许对自定义类型使用C++运算符，如 `+`, `-`, `<<` 等。
+
+### 重载运算符的规则
+
+- 只能对已有运算符进行重载，不能创建新运算符。
+- 至少有一个操作数必须是用户定义的类型。
+- 不能改变运算符的优先级或结合性。
+
+~~~cpp
+class Example{
+public:
+    Example(int x, int y) : _x(x), _y(y){}
+    
+    // 重载运算符
+    Example operator + (const Example & other) const{
+        return Example(_x + other._x, _y + other._y);
+    }
+    // 声明友元函数，在函数体外重载
+    friend Example operator - (const Example & a, const Example & b);
+    
+    // 重载 << 运算符
+    friend std::ostream & operator << (std::ostream & os, const Example & example);
+    
+    void print() const{
+        std::cout << "(" << _x << "," << _y << ")" << std::endl;
+    }
+private:
+    int _x;
+    int _y;
+};
+
+// 定义重载的减号运算符
+Example operator - (const Example & a, const Example & b){
+    return Example(a._x - b._x, a._y - b._y);
+}
+
+// 定义重载的 << 运算符
+std::ostream & operator << (std::ostream & os, const Example & example){
+    os << "Example x : " << example._x << " y :" << example._y << std::endl;
+    return os;
+}
+
 ~~~
 
