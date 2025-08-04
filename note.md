@@ -1,5 +1,9 @@
 手写智能指针
 
+自定义删除器
+
+函数指针、仿函数（Functors）、Lambda表达式、`std::function`、`std::bind` 以及绑定类成员函数的使用。
+
 
 
 RAII：资源获取即初始化
