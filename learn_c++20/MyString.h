@@ -6,7 +6,7 @@
 #define LEARNC___MYSTRING_H
 #include <iostream>
 #include <cstring>
-/*
+
 class MyString {
 public:
     MyString():_data(nullptr){}
@@ -22,6 +22,6 @@ public:
 private:
     char * _data;
 };
-*/
+
 
 #endif //LEARNC___MYSTRING_H

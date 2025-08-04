@@ -6,7 +6,7 @@
 
 #include "MyString.h"
 
-/*
+
 
 // 带参构造
 MyString::MyString(const char *str) {
@@ -128,4 +128,3 @@ MyString::~MyString() {
     delete[] _data;
     _data = nullptr;
 }
-*/

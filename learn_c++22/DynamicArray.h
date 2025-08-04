@@ -5,6 +5,7 @@
 #ifndef LEARNC___DYNAMICARRAY_H
 #define LEARNC___DYNAMICARRAY_H
 #include <iostream>
+
 // 实现一个简单的动态数组，支持添加元素、访问元素和自动扩展
 class DynamicArray {
 public:

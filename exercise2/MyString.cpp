@@ -104,5 +104,5 @@ std::ostream & operator << (std::ostream & os, const MyString & MyStr){
 MyString::~MyString(){
     if(_data == nullptr) return;
     delete[] _data;
-    _data = nullptr
+    _data = nullptr;
 }
