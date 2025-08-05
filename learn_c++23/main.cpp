@@ -6,7 +6,6 @@
 #include "SimpleSharedPtr.h"
 #include "../learn_c++22/Student.h"
 
-
 int main(){
     std::cout << "Creating default shared pointer" << std::endl;
     SimpleSharedPtr<Student> ptr1;
@@ -32,8 +31,6 @@ int main(){
     std::cout << "Ptr2 use_count : " << ptr2.use_count() << std::endl;
     std::cout << "Ptr3 use_count : " << ptr3.use_count() << std::endl;
     std::cout << "Ptr1 use_count : " << ptr1.use_count() << std::endl;
-
-
 
     return 0;
 }
