@@ -9,7 +9,6 @@
 #include <exception>
 #include <stack>
 
-
 template <typename Key, typename T>
 struct TreeNode{
     std::pair<Key, T> data;
