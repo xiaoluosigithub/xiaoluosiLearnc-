@@ -2,7 +2,7 @@
 // Created by lyx on 2025/8/6.
 //
 
-#ifndef LEARNC___TEMPLATE_H
+#ifndef LEARNC___TEMPLATE2_H
 #define LEARNC___TEMPLATE_H
 
 #include <iostream>
@@ -51,4 +51,4 @@ public:
     }
 };
 
-#endif //LEARNC___TEMPLATE_H
+#endif //LEARNC___TEMPLATE2_H

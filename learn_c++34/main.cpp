@@ -26,7 +26,7 @@ int main(){
     std::vector<int> vec = {1, 2, 3, 4, 5};
     vecPrinter.print(vec);
 
-    ContainerPrinter<std::list, int> listPrinters;
+    ContainerPrinter<std::list, int> listPrinter;
     std::list<int> list = {10, 20, 30, 40, 55};
     listPrinter.print(list);
 
